@@ -1,4 +1,4 @@
-<form #employeeForm="ngForm">
+<form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
   <div class="form-group">
     <label>Name</label>
     <input class="form-control" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" placeholder="Full Name">
@@ -13,6 +13,21 @@
   </div>
   <div class="form-group">
     <label>Salary</label>
-    <input class="form-control" name="salary" #salary="ngModel" [(ngModel)]="employeeService.selectedEmployee.salary" placeholder="Salary">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fa fa-dollar"></i>
+        </span>
+      </div>
+      <input class="form-control" name="salary" #salary="ngModel" [(ngModel)]="employeeService.selectedEmployee.salary" placeholder="Salary">
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-default" type="submit">
+      <i class="fa fa-floppy-o"></i>
+      Submit</button>
+    <button class="btn btn-default" type="button" (click)="resetForm(employeeForm)">
+      <i class="fa fa-repeat"></i>
+      Reset</button>
   </div>
 </form>
