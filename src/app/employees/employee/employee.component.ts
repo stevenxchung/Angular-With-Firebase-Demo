@@ -13,11 +13,13 @@ export class EmployeeComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
+    this.employeeService.getData();
     this.resetForm();
   }
 
   onSubmit(employeeForm: NgForm) {
-
+    this.employeeService.insertEmployee(employeeForm.value);
+    this.resetForm(employeeForm);
   }
 
   resetForm(employeeForm?: NgForm) {
