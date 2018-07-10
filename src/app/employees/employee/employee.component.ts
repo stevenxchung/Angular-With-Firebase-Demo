@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 // Inject EmployeeService to EmployeeComponent class
 import { EmployeeService } from '../shared/employee.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -10,16 +11,20 @@ import { EmployeeService } from '../shared/employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.employeeService.getData();
     this.resetForm();
   }
 
   onSubmit(employeeForm: NgForm) {
-    this.employeeService.insertEmployee(employeeForm.value);
+    if (employeeForm.value.$key == null) {
+      this.employeeService.insertEmployee(employeeForm.value);
+    } else {
+      this.employeeService.updateEmployee(employeeForm.value);
+    }
     this.resetForm(employeeForm);
+    this.toastr.success('Submitted Successfully', 'Employee Register');
   }
 
   resetForm(employeeForm?: NgForm) {
